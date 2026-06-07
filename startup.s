@@ -4,12 +4,8 @@
 .global TIM1_IRQHandler
 .global TIM2_IRQHandler
 .global TIM3_IRQHandler
+.global TIM4_IRQHandler
 .global DefaultHandler
-
-.weak TIM2_IRQHandler
-.thumb_set TIM1_IRQHandler, DefaultHandler
-.thumb_set TIM2_IRQHandler, DefaultHandler
-.thumb_set TIM3_IRQHandler, DefaultHandler
 
 .global _reset
 
@@ -61,7 +57,7 @@
 .word DefaultHandler //TIM1_CC
 .word TIM2_IRQHandler //TIM2
 .word TIM3_IRQHandler //TIM3
-.word DefaultHandler //TIM4
+.word TIM4_IRQHandler //TIM4
 .word DefaultHandler //I2C1_EV
 .word DefaultHandler //I2C1_ER
 .word DefaultHandler //I2C2_EV
@@ -97,10 +93,6 @@
 
 .thumb_func
 _reset:
-	bl ResetHandler
     	bl main
     	b .
 
-//.thumb_func
-//DefaultHandler:
-//	b .
