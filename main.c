@@ -104,6 +104,15 @@ extern uint8_t _edata;
 extern uint8_t _sbss;
 extern uint8_t _ebss;
 
+void ResetHandler();
+
+void DefaultHandler();
+
+void TIM1_IRQHandler();
+void TIM2_IRQHandler();
+void TIM3_IRQHandler();
+void TIM4_IRQHandler();
+
 void DefaultHandler(void) {
 	GPIOC_ODR ^= (1 << 13);
 }
@@ -118,14 +127,12 @@ int main(void) {
 	
 	RCC_CR |= (1 << 24);
 	while(!(RCC_CR & (1 << 25)));
-		
-	RCC_APB2ENR |= (1 << 4);
+
+	ResetHandler();
+
 	
-	GPIOC_CRH = 0x44344444;	
-	uint8_t count = 0;
-	GPIOC_ODR &= ~(1 << 13);
 	while(1) {
-		count++;
+		
 	}
 }
 
@@ -147,3 +154,15 @@ void ResetHandler(void) {
 	 
 } 
 
+void TIM1_IRQHandler(void) {
+	TIM1_SR = 0x0000;
+}
+void TIM2_IRQHandler(void) {
+	TIM2_SR = 0x0000;
+}
+void TIM3_IRQHandler(void) {
+	TIM3_SR = 0x0000;
+}
+void TIM4_IRQHandler(void) {
+	TIM4_SR = 0x0000;
+}
